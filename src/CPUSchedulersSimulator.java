@@ -17,4 +17,49 @@ public class CPUSchedulersSimulator {
 
 
     }
+
+
+//    public static void main(String[] args) {
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.print("Enter the number of processes: ");
+//        int numProcesses = scanner.nextInt();
+//
+//        List<Process> processes = new ArrayList<>();
+//        for (int i = 0; i < numProcesses; i++) {
+//            System.out.println("Enter details for Process " + (i + 1) + ":");
+//            System.out.print("Name: ");
+//            String name = scanner.next();
+//            System.out.print("Color: ");
+//            String color = scanner.next();
+//            System.out.print("Arrival Time: ");
+//            int arrivalTime = scanner.nextInt();
+//            System.out.print("Burst Time: ");
+//            int burstTime = scanner.nextInt();
+//            System.out.print("Priority: ");
+//            int priority = scanner.nextInt();
+//
+//            processes.add(new Process(name, color, arrivalTime, burstTime, priority));
+//        }
+//
+//        System.out.println("Select Scheduler: 1. Priority 2. SJF 3. FCAI");
+//        int choice = scanner.nextInt();
+//
+//        Scheduler scheduler;
+//        switch (choice) {
+//            case 1:
+//                scheduler = new PriorityScheduler();
+//                break;
+//            case 2:
+//                scheduler = new SJFScheduler();
+//                break;
+//            case 3:
+//                scheduler = new FCAIScheduler();
+//                break;
+//            default:
+//                System.out.println("Invalid choice.");
+//                return;
+//        }
+//
+//        scheduler.schedule(processes);
+//    }
 }
