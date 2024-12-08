@@ -1,13 +1,13 @@
 import java.util.*;
 
 class SJFScheduler implements Scheduler {
-
-    public Map<String, Double> SchedulingSummary;
-    // List to store completed processes for later analysis and statistics
-    List<Process> completed = new ArrayList<>();
+    private final Map<String, Double> schedulingSummary = new HashMap<>();
+    private final List<Process> completed = new ArrayList<>();
+    private final List<Execution> executions = new ArrayList<>();
 
     @Override
     public List<Process> schedule(List<Process> processes) {
+
         // Sort processes based on arrival time to ensure they are considered in the correct order
         processes.sort(Comparator.comparingInt(p -> p.arrivalTime));
 
@@ -35,30 +35,38 @@ class SJFScheduler implements Scheduler {
             // Fetch the process with the shortest burst time from the ready queue
             Process current = readyQueue.poll();
 
-            // Calculate waiting time (time spent waiting in the queue)
-            current.waitingTime = currentTime - current.arrivalTime;
-
-            // Calculate turnaround time (total time from arrival to completion)
-            current.turnaroundTime = current.waitingTime + current.burstTime;
-
-            // Update the current time after the process finishes execution
             int startTime = currentTime;
             currentTime += current.burstTime;
 
-            // Add the process to the list of completed processes
+            // Calculate waiting time (time spent waiting in the queue)
+            current.waitingTime = startTime - current.arrivalTime;
+
+            // Calculate turnaround time (total time from arrival to completion)
+            current.turnaroundTime = currentTime - current.arrivalTime;
+
+            // Update the current time after the process finishes execution
             completed.add(current);
 
-            // Log the execution details of the process
-            logger.printExecution(current, startTime, currentTime);
+            // Add the current to execution sequence
+            executions.add(new Execution(current.name, "executes", startTime, currentTime, current.color));
 
+            // Log the execution details of the process
+            Logger.logExecution(current, startTime, currentTime);
         }
 
-        // Log the final statistics (average waiting and turnaround times)
-        logger.printStatistics(completed);
-
         ResultsCalculator calculator = new ResultsCalculator(completed);
-
-        SchedulingSummary = calculator.calc();
+        schedulingSummary.putAll(calculator.calc());
+        Logger.logStatistics(completed);
         return completed;
+    }
+
+    @Override
+    public List<Execution> getExecutions() {
+        return executions;
+    }
+
+    @Override
+    public Map<String, Double> getSchedulingSummary() {
+        return schedulingSummary;
     }
 }
