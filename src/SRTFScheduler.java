@@ -6,7 +6,7 @@ class SRTFScheduler implements Scheduler {
     private final List<Execution> executions = new ArrayList<>();
 
     @Override
-    public List<Process> schedule(List<Process> processes) {
+    public void schedule(List<Process> processes) {
         processes.sort(Comparator.comparingInt(p -> p.arrivalTime)); // Sort processes by arrival time
         PriorityQueue<Process> readyQueue = new PriorityQueue<>(Comparator.comparingInt((Process p) -> p.burstTime)
                 .thenComparingInt(p -> p.arrivalTime));
@@ -74,7 +74,6 @@ class SRTFScheduler implements Scheduler {
         ResultsCalculator calculator = new ResultsCalculator(completed);
         schedulingSummary.putAll(calculator.calc());
         Logger.logStatistics(completed); // Log overall statistics
-        return completed;
     }
 
     @Override

@@ -6,7 +6,7 @@ class SJFScheduler implements Scheduler {
     private final List<Execution> executions = new ArrayList<>();
 
     @Override
-    public List<Process> schedule(List<Process> processes) {
+    public void schedule(List<Process> processes) {
 
         // Sort processes based on arrival time to ensure they are considered in the correct order
         processes.sort(Comparator.comparingInt(p -> p.arrivalTime));
@@ -57,7 +57,6 @@ class SJFScheduler implements Scheduler {
         ResultsCalculator calculator = new ResultsCalculator(completed);
         schedulingSummary.putAll(calculator.calc());
         Logger.logStatistics(completed);
-        return completed;
     }
 
     @Override
