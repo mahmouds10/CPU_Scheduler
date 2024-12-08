@@ -44,7 +44,7 @@ class SJFScheduler implements Scheduler {
             // Calculate turnaround time (total time from arrival to completion)
             current.turnaroundTime = currentTime - current.arrivalTime;
 
-            // Update the current time after the process finishes execution
+            // Add the current process to the completed list
             completed.add(current);
 
             // Add the current to execution sequence
@@ -52,6 +52,7 @@ class SJFScheduler implements Scheduler {
 
             // Log the execution details of the process
             Logger.logExecution(current, startTime, currentTime);
+            Logger.logStop(current, currentTime);
         }
 
         ResultsCalculator calculator = new ResultsCalculator(completed);
