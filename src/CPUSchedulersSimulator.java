@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.*;
 
 
@@ -24,6 +25,7 @@ public class CPUSchedulersSimulator {
         System.out.println("1 ====> SRTF ");
         System.out.println("2 ====> SJF  ");
         System.out.println("3 ====> Priority");
+        System.out.println("4 ====> FCAI");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
 
@@ -44,6 +46,10 @@ public class CPUSchedulersSimulator {
             case 3:
                 scheduler = new PriorityScheduler();
                 schedulerName = "Priority";
+                break;
+            case 4:
+                scheduler = new FCAIScheduler();
+                schedulerName = "FCAI";
                 break;
             default:
                 System.out.println("Invalid choice.");
