@@ -15,7 +15,7 @@ public class CPUSchedulersSimulator {
 
 
         Queue<ProcessThread> queue = new LinkedList<>();
-        List<ProcessThread> FCAIprocesses = Arrays.asList(
+        List<ProcessThread> FCAIProcesses = Arrays.asList(
                 new ProcessThread("P1", "Red", 0, 17, 4, 4, queue),
                 new ProcessThread("P2", "Blue", 3, 6, 9, 3, queue),
                 new ProcessThread("P3", "Green", 4, 10, 3, 5, queue),
@@ -73,7 +73,7 @@ public class CPUSchedulersSimulator {
             );
         } else if (choice == 4) {
             FCAIScheduler FcaiScheduler = new FCAIScheduler();
-            FcaiScheduler.schedule(FCAIprocesses, queue);
+            FcaiScheduler.schedule(FCAIProcesses, queue);
         } else {
             System.out.println("Invalid choice.");
         }
