@@ -16,10 +16,10 @@ public class CPUSchedulersSimulator {
 
         Queue<ProcessThread> queue = new LinkedList<>();
         List<ProcessThread> FCAIProcesses = Arrays.asList(
-                new ProcessThread("P1", "Red", 0, 17, 4, 4, queue),
-                new ProcessThread("P2", "Blue", 3, 6, 9, 3, queue),
-                new ProcessThread("P3", "Green", 4, 10, 3, 5, queue),
-                new ProcessThread("P4", "Yellow", 29, 4, 10, 2, queue)
+                new ProcessThread("P1", "#FF0000", 0, 17, 4, 4, queue),
+                new ProcessThread("P2", "#0000FF", 3, 6, 9, 3, queue),
+                new ProcessThread("P3", "#00FF00", 4, 10, 3, 5, queue),
+                new ProcessThread("P4", "#FFFF00", 29, 4, 10, 2, queue)
         );
 
 
@@ -74,6 +74,16 @@ public class CPUSchedulersSimulator {
         } else if (choice == 4) {
             FCAIScheduler FcaiScheduler = new FCAIScheduler();
             FcaiScheduler.schedule(FCAIProcesses, queue);
+            double totalWaiting = 0;
+            double totalTurnarround = 0;
+            for (ProcessThread p : FCAIProcesses) {
+                totalWaiting += p.waitingTime;
+                totalTurnarround += p.turnaroundTime;
+            }
+            System.out.println("\nTotal Waiting = " + totalWaiting);
+            System.out.println("Total Turnarround = " + totalTurnarround);
+            System.out.println("Average Waiting = " + totalWaiting / processes.size());
+            System.out.println("Average Turnarround = " + totalTurnarround / processes.size());
         } else {
             System.out.println("Invalid choice.");
         }
