@@ -20,14 +20,15 @@ class SchedulerGUI {
         }
 
         int totalDuration = maxEndTime - minStartTime;
-        int timeUnitWidth = 60; // Scale for visualization
+        int maxChartWidth = 1000; // Limit the maximum width of the chart
+        int timeUnitWidth = Math.min(60, maxChartWidth / Math.max(1, totalDuration)); // Dynamically adjust time unit width
         int ganttChartWidth = timeUnitWidth * totalDuration;
 
         // Gantt Chart Panel
         JPanel ganttPanel = new JPanel();
         ganttPanel.setLayout(null);
         ganttPanel.setBorder(BorderFactory.createTitledBorder("Gantt Chart"));
-        ganttPanel.setPreferredSize(new Dimension(ganttChartWidth, 150)); // Adjust width based on the total duration
+        ganttPanel.setPreferredSize(new Dimension(ganttChartWidth, 150));
         ganttPanel.setBackground(Color.WHITE);
 
         int currentX = 10;
@@ -69,12 +70,18 @@ class SchedulerGUI {
         endTimeLabel.setBounds(currentX, 140, 50, 20); // Position after the last execution block
         ganttPanel.add(endTimeLabel);
 
+        // Add a scroll pane to handle wide Gantt charts
+        JScrollPane scrollPane = new JScrollPane(ganttPanel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+
+        // Statistics Panel
         JPanel statsPanel = new JPanel(new GridLayout(2, 1));
         statsPanel.setBorder(BorderFactory.createTitledBorder("Statistics"));
         statsPanel.add(new JLabel("Average Waiting Time: " + String.format("%.2f", avgWaitingTime)));
         statsPanel.add(new JLabel("Average Turnaround Time: " + String.format("%.2f", avgTurnaroundTime)));
 
-        mainPanel.add(ganttPanel, BorderLayout.CENTER);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
         mainPanel.add(statsPanel, BorderLayout.SOUTH);
 
         frame.add(mainPanel);
