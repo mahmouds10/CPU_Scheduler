@@ -1,6 +1,6 @@
 public class Execution {
     String processName;
-    String state; // e.g., "starts", "stops", "resumes", "executes", "completes"
+    String state;
     int startTime;
     int endTime;
     String color;
