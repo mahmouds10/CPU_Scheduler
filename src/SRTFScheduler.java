@@ -17,9 +17,9 @@ class SRTFScheduler implements Scheduler {
             originalBurstTimes.put(process.name, process.burstTime);
         }
 
-        int currentTime = 0; // Tracks current simulation time
-        Process currentProcess = null; // The process currently being executed
-        int processStartTime = -1; // The start time of the current process
+        int currentTime = 0;
+        Process currentProcess = null;
+        int processStartTime = -1;
 
         while (!processes.isEmpty() || !readyQueue.isEmpty() || currentProcess != null) {
             // Add newly arrived processes to the ready queue
